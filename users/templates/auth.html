@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyDocs - Login/Cadastro</title>
+    <script>
+    function showForm(showRegister) {
+        document.getElementById('login-form').style.display = showRegister ? 'none' : '';
+        document.getElementById('register-form').style.display = showRegister ? '' : 'none';
+    }
+    window.onload = function() {
+        showForm({{ show_register|yesno:"true,false" }});
+    }
+    </script>
+</head>
+<body>
+    <h1>EasyDocs</h1>
+    <div id="login-form">
+        <h2>Login</h2>
+
+        {% if login_form.errors %}
+            <ul style="color: red;">
+                {% for field in login_form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in login_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button name="login_submit" type="submit">Entrar</button>
+        </form>
+        <button type="button" onclick="showForm(true); window.history.replaceState(null, '', '/?register=1');">Criar conta</button>
+    </div>
+    <div id="register-form" style="display:none;">
+        <h2>Cadastro</h2>
+
+        {% if register_form.errors %}
+            <ul style="color: red;">
+                {% for field in register_form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in register_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <button name="register_submit" type="submit">Cadastrar</button>
+        </form>
+        <button type="button" onclick="showForm(false); window.history.replaceState(null, '', '/');">Voltar para Login</button>
+    </div>
+</body>
+</html>

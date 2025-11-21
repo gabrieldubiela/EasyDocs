@@ -10,17 +10,23 @@ anyio==4.11.0
     # via httpx
 asgiref==3.10.0
     # via django
+brotli==1.2.0
+    # via fonttools
 certifi==2025.11.12
     # via
     #   httpcore
     #   httpx
     #   requests
 cffi==2.0.0
-    # via cryptography
+    # via
+    #   cryptography
+    #   weasyprint
 charset-normalizer==3.4.4
     # via requests
 cryptography==46.0.3
     # via pyjwt
+cssselect2==0.8.0
+    # via weasyprint
 deprecation==2.1.0
     # via
     #   postgrest
@@ -34,6 +40,8 @@ django==5.2.8
     #   djangorestframework
 djangorestframework==3.16.1
     # via -r requirements.in
+fonttools[woff]==4.60.1
+    # via weasyprint
 gunicorn==23.0.0
     # via -r requirements.in
 h11==0.16.0
@@ -65,6 +73,8 @@ packaging==25.0
     # via
     #   deprecation
     #   gunicorn
+pillow==12.0.0
+    # via weasyprint
 postgrest==2.24.0
     # via supabase
 propcache==0.4.1
@@ -81,8 +91,12 @@ pydantic==2.12.4
     #   supabase-auth
 pydantic-core==2.41.5
     # via pydantic
+pydyf==0.11.0
+    # via weasyprint
 pyjwt[crypto]==2.10.1
     # via supabase-auth
+pyphen==0.17.2
+    # via weasyprint
 python-decouple==3.8
     # via -r requirements.in
 realtime==2.24.0
@@ -103,6 +117,12 @@ supabase-auth==2.24.0
     # via supabase
 supabase-functions==2.24.0
     # via supabase
+tinycss2==1.5.0
+    # via
+    #   cssselect2
+    #   weasyprint
+tinyhtml5==2.0.0
+    # via weasyprint
 typing-extensions==4.15.0
     # via
     #   pydantic
@@ -115,6 +135,13 @@ tzdata==2025.2
     # via django
 urllib3==2.5.0
     # via requests
+weasyprint==66.0
+    # via -r requirements.in
+webencodings==0.5.1
+    # via
+    #   cssselect2
+    #   tinycss2
+    #   tinyhtml5
 websockets==15.0.1
     # via realtime
 yarl==1.22.0
@@ -122,3 +149,5 @@ yarl==1.22.0
     #   postgrest
     #   storage3
     #   supabase-functions
+zopfli==0.4.0
+    # via fonttools

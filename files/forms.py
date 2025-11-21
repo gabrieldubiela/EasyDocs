@@ -95,3 +95,25 @@ class PDFTemplateForm(forms.ModelForm):
                 'placeholder': 'CSS customizado (opcional)'
             }),
         }
+
+class PropostaPDFForm(forms.Form):
+    cliente_nome = forms.CharField(label='Nome do Cliente', max_length=255)
+    cliente_cpf = forms.CharField(label='CPF do Cliente', max_length=20, required=False)
+    servico_nome_abreviado = forms.CharField(label='Serviço (abreviado)', max_length=100)
+    servico_nome_completo = forms.CharField(label='Serviço (completo)', max_length=255)
+    localizacao = forms.CharField(label='Localização', max_length=255)
+    proposta_numero = forms.CharField(label='Número da Proposta', max_length=50)
+    descricao_servico = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 5, 'placeholder': 'Um item por linha'}),
+        required=False,
+        label="Descrição do serviço (um por linha)"
+    )
+    itens_nao_inclusos = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 5, 'placeholder': 'Um item por linha'}),
+        required=False,
+        label="Itens não inclusos (um por linha)"
+    )
+    valor_total = forms.CharField(label='Valor Total', max_length=20)
+    forma_de_pagamento = forms.CharField(label='Forma de Pagamento', max_length=255)
+    forma_prazo_execucao = forms.CharField(label='Forma/prazo de execução', max_length=255)
+    data_atual = forms.CharField(label='Data Atual', max_length=40)

@@ -1,0 +1,17 @@
+<!-- D:\Gabriel\Programs\EasyDocs\templates\home.html -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao EasyDocs!</title>
+</head>
+<body>
+    <h2>Bem-vindo, {{ user.username }}!</h2>
+    <ul>
+        <li><a href="{% url 'files:gerar_pdf' %}">Gerar PDF</a></li>
+        <li><a href="{% url 'files:gestao' %}">Gerir Pastas e Documentos</a></li>
+        <li><a href="/users/logout/">Logout</a></li>
+    </ul>
+</body>
+</html>

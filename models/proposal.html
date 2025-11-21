@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 110px 60px 70px 60px;
+
+            @top-left {
+                content: url('{{ header_image_url }}');
+                margin-left: -110px;
+                margin-top: -25px;
+            }
+
+            @bottom-center {
+                content: url('{{ footer_image_url }}');
+            }
+        }
+
+        @font-face {
+            font-family: 'Barracuda Light';
+            src: url('Barracuda-Light.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gewtymol';
+            src: url('Gewtymol.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        body {
+            font-family: 'Barracuda Light', Arial, sans-serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* Cabeçalho */
+
+        /* Marca d'água */
+        .watermark {
+            position: fixed;
+            top: -400px;
+            left: -227px;
+            width: 25.4cm;
+            height: 39.7cm;
+            opacity: 0.9;
+            z-index: -1;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+        }
+
+
+        h1 {
+            font-family: 'Gewtymol', Arial, sans-serif;
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        p {
+            text-indent: 5em;
+        }
+
+        .no-indent {
+            text-indent: 0 !important;
+        }
+
+        .left {
+            margin-left: 7em;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 40px 0;
+            margin-top: 10px;
+        }
+
+        ol[type="a"]>li {
+            list-style-type: lower-alpha;
+            margin-left: 6em;
+        }
+
+        ol[type="a"] > li::marker {
+            content: counter(list-item, lower-alpha) ')\2003';
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Marca d'água -->
+    <div class="watermark" style="background-image: url('{{ watermark_url }}');"></div>
+
+    <h1>PROPOSTA COMERCIAL</h1>
+
+    <section>
+        <p class="no-indent">Santos, {{ data_atual }}<br>
+            Cliente: {{ cliente_nome }}<br>
+            Serviço: {{ servico_nome_abreviado }}<br>
+            Proposta: {{ proposta_numero }}
+        </p>
+    </section>
+
+    <section>
+        <p>A presente Proposta Comercial é referente ao serviço de {{servico_nome_completo}} em {{localizacao}}.</p>
+    </section>
+
+    <section>
+        <h2>Descrição do Serviço</h2>
+        <p>Faz parte do serviço proposto:</p>
+        <ol type="a">
+            {% for item in descricao_servico %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section>
+        <h2>Itens Não Inclusos</h2>
+        <p>Não está incluso no serviço proposto:</p>
+        <ol type="a">
+            {% for item in itens_nao_inclusos %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section>
+        <h2>Valores e Pagamento</h2>
+        <p>O valor total é de R$ {{ valor_total }}, sendo pago {{forma_de_pagamento}}.</p>
+        <p>Formas de Pagamento aceitas: Pix; transferência bancária; boleto; em espécie; cartão de crédito e débito.</p>
+        <p>Contas para pagamento:</p>
+        <table>
+            <td>
+                <p class="left no-indent">
+                    Banco Nubank 0260<br>
+                    Agência 0001<br>
+                    Conta Corrente 22942468-7
+                </p>
+            </td>
+            <td>
+                <p class="left no-indent">
+                    Banco Iti 341<br>
+                    Agência 0500<br>
+                    Conta Corrente 22072786-6
+                </p>
+            </td>
+        </table>
+        <p>Pix: contato@laisaengenharia.com.br</p>
+    </section>
+
+    <section>
+        <h2>Forma e prazo de execução</h2>
+        <p>O serviço será iniciado após o pagamento da entrada conforme agendamento entre ambas as partes. O prazo de
+            execução dos serviços é de {{ forma_prazo_execucao }}.</p>
+        </div>
+        <section>
+            <h2>Validade da Proposta</h2>
+            <p>Esta proposta é válida por 30 dias consecutivos, contados da data de sua emissão.</p>
+        </section>
+
+        <section>
+            <table>
+                <td>Atenciosamente,</td>
+                <td>De acordo.</td>
+            </table>
+            <table class="center">
+                <br><br><br>
+                <td>
+                    Maria Laisa Santana Freitas Dubiela<br>
+                    CREASP 5070627805
+                </td>
+                <td>
+                    {{ cliente_nome }}<br>
+                    CPF {{cliente_cpf}}
+                </td>
+            </table>
+        </section>
+</body>
+</html>

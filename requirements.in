@@ -1,8 +1,9 @@
-Django>=5.2.8
-djangorestframework>=3.14.0
-psycopg2-binary>=2.9.11
-python-decouple>=3.8
-dj-database-url>=3.0.1
-gunicorn>=21.2.0
-supabase>=2.24.0
+Django
+djangorestframework
+psycopg2-binary
+python-decouple
+dj-database-url
+gunicorn
+supabase
 requests
+weasyprint

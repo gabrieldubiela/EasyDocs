@@ -1,3 +1,4 @@
+# supabase_storage.py
 from supabase import create_client, Client
 from django.conf import settings
 import logging
@@ -35,20 +36,8 @@ class SupabaseStorageService:
             logger.error(f"Upload failed: {str(e)}", exc_info=True)
             raise Exception(f"Upload failed: {str(e)}")
 
-    def get_file_url(self, file_path):
-        """Get the public URL of a file"""
-        try:
-            logger.info(f"Getting URL for: {file_path}")
-            url = self.supabase.storage.from_(self.bucket_name).get_public_url(file_path)
-            logger.info(f"URL generated: {url}")
-            if isinstance(url, dict) and 'publicUrl' in url:
-                url = url['publicUrl']
-            return url
-        except Exception as e:
-            logger.error(f"Get URL failed: {str(e)}", exc_info=True)
-            raise Exception(f"Get URL failed: {str(e)}")
-
-    def get_signed_url(self, file_path, expires_in=3600):   # <--- COLOQUE AQUI DENTRO!
+    def get_signed_url(self, file_path, expires_in=3600):
+        """Gere uma URL temporária de acesso seguro."""
         try:
             response = self.supabase.storage.from_(self.bucket_name).create_signed_url(file_path, expires_in)
             if isinstance(response, dict) and 'signedUrl' in response:
@@ -59,12 +48,12 @@ class SupabaseStorageService:
             raise Exception(f"Signed URL error: {str(e)}")
 
     def delete_file(self, file_path):
-        """Delete a file from Supabase Storage"""
         try:
-            print(f"DEBUG: Tentando apagar do storage -> {file_path}")
+            logger.debug(f"Deleting from storage: {file_path}")
             self.supabase.storage.from_(self.bucket_name).remove([file_path])
             return True
         except Exception as e:
+            logger.error(f"Delete failed: {str(e)}", exc_info=True)
             raise Exception(f"Delete failed: {str(e)}")
 
 supabase_storage = SupabaseStorageService()

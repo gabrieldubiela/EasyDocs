@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Olá, {{ user.first_name }}!</h2>
+<ul>
+    <li><a href="{% url 'gerar_pdf' %}">Gerar PDF</a></li>
+    <li><a href="{% url 'listar_pastas' %}">Pastas e Documentos</a></li>
+    <li><a href="{% url 'logout' %}">Sair</a></li>
+</ul>
+{% endblock %}

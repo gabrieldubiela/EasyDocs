@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EasyDocs</title>
+    <style>
+        body {
+            background: #111;
+            color: #eee;
+            font-family: Arial, sans-serif;
+        }
+
+        input,
+        textarea,
+        select,
+        button {
+            font-size: 1rem;
+        }
+
+        form {
+            background: #222;
+            padding: 2em;
+            border-radius: 6px;
+            max-width: 600px;
+            margin: 2em auto;
+        }
+    </style>
+</head>
+
+<body>
+    {% block content %}
+    <!-- O conteúdo da página vai aqui -->
+    {% endblock %}
+</body>
+
+</html>
