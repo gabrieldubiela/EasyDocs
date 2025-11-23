@@ -4,21 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page {
-            size: A4;
-            margin: 110px 60px 70px 60px;
-
-            @top-left {
-                content: url('{{ header_image_url }}');
-                margin-left: -110px;
-                margin-top: -25px;
-            }
-
-            @bottom-center {
-                content: url('{{ footer_image_url }}');
-            }
-        }
-
         @font-face {
             font-family: 'Barracuda Light';
             src: url('Barracuda-Light.ttf') format('truetype');
@@ -41,24 +26,6 @@
             position: relative;
         }
 
-        /* Cabeçalho */
-
-        /* Marca d'água */
-        .watermark {
-            position: fixed;
-            top: -400px;
-            left: -227px;
-            width: 25.4cm;
-            height: 39.7cm;
-            opacity: 0.9;
-            z-index: -1;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            pointer-events: none;
-        }
-
-
         h1 {
             font-family: 'Gewtymol', Arial, sans-serif;
             font-size: 22pt;
@@ -69,6 +36,7 @@
 
         p {
             text-indent: 5em;
+            text-align: justify;
         }
 
         .no-indent {
@@ -102,28 +70,25 @@
 </head>
 
 <body>
-    <!-- Marca d'água -->
-    <div class="watermark" style="background-image: url('{{ watermark_url }}');"></div>
-
     <h1>PROPOSTA COMERCIAL</h1>
 
     <section>
-        <p class="no-indent">Santos, {{ data_atual }}<br>
-            Cliente: {{ cliente_nome }}<br>
-            Serviço: {{ servico_nome_abreviado }}<br>
-            Proposta: {{ proposta_numero }}
+        <p class="no-indent">Santos, {{ data_da_proposta }}<br>
+            Proposta: {{ número_da_proposta }}<br>
+            Cliente: {{ nome_do_cliente }}<br>
+            Serviço: {{ serviço_abreviado }}
         </p>
     </section>
 
     <section>
-        <p>A presente Proposta Comercial é referente ao serviço de {{servico_nome_completo}} em {{localizacao}}.</p>
+        <p>A presente Proposta Comercial é referente ao serviço de {{serviço_completo}} em {{localização}}.</p>
     </section>
 
     <section>
         <h2>Descrição do Serviço</h2>
         <p>Faz parte do serviço proposto:</p>
         <ol type="a">
-            {% for item in descricao_servico %}
+            {% for item in descrição_do_servico %}
             <li>{{ item }}</li>
             {% endfor %}
         </ol>
@@ -133,7 +98,7 @@
         <h2>Itens Não Inclusos</h2>
         <p>Não está incluso no serviço proposto:</p>
         <ol type="a">
-            {% for item in itens_nao_inclusos %}
+            {% for item in itens_não_inclusos %}
             <li>{{ item }}</li>
             {% endfor %}
         </ol>
@@ -166,7 +131,7 @@
     <section>
         <h2>Forma e prazo de execução</h2>
         <p>O serviço será iniciado após o pagamento da entrada conforme agendamento entre ambas as partes. O prazo de
-            execução dos serviços é de {{ forma_prazo_execucao }}.</p>
+            execução dos serviços é de {{ prazo_de_execução }}.</p>
         </div>
         <section>
             <h2>Validade da Proposta</h2>
@@ -185,8 +150,8 @@
                     CREASP 5070627805
                 </td>
                 <td>
-                    {{ cliente_nome }}<br>
-                    CPF {{cliente_cpf}}
+                    {{ nome_do_cliente }}<br>
+                    CPF {{cpf_do_cliente}}
                 </td>
             </table>
         </section>

@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>EasyDocs - Login/Cadastro</title>
-    <script>
-    function showForm(showRegister) {
-        document.getElementById('login-form').style.display = showRegister ? 'none' : '';
-        document.getElementById('register-form').style.display = showRegister ? '' : 'none';
-    }
-    window.onload = function() {
-        showForm({{ show_register|yesno:"true,false" }});
-    }
-    </script>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>EasyDocs</h1>
     <div id="login-form">
         <h2>Login</h2>
-
         {% if login_form.errors %}
             <ul style="color: red;">
                 {% for field in login_form %}
@@ -30,7 +16,6 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
         <form method="post">
             {% csrf_token %}
             {{ login_form.as_p }}
@@ -40,7 +25,6 @@
     </div>
     <div id="register-form" style="display:none;">
         <h2>Cadastro</h2>
-
         {% if register_form.errors %}
             <ul style="color: red;">
                 {% for field in register_form %}
@@ -53,7 +37,6 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
         <form method="post">
             {% csrf_token %}
             {{ register_form.as_p }}
@@ -61,5 +44,13 @@
         </form>
         <button type="button" onclick="showForm(false); window.history.replaceState(null, '', '/');">Voltar para Login</button>
     </div>
-</body>
-</html>
+    <script>
+        function showForm(showRegister) {
+            document.getElementById('login-form').style.display = showRegister ? 'none' : '';
+            document.getElementById('register-form').style.display = showRegister ? '' : 'none';
+        }
+        window.onload = function() {
+            showForm({{ show_register|yesno:"true,false" }});
+        }
+    </script>
+{% endblock %}

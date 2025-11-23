@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Gerador de PDF</h1>
+
+    <!-- Seção para exibir templates existentes -->
+    <h2>Templates disponíveis</h2>
+    <ul>
+        {% for template in templates %}
+        <li>
+            {{ template.template_name }}
+            <a href="{% url 'files:preencher_template' template.id %}">Preencher</a>
+        </li>
+        {% empty %}
+        <li>Nenhum template cadastrado</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Botão para criar novo template -->
+    <a href="{% url 'files:criar_template' %}">Criar novo template</a>
+
+    <!-- Lista dos PDFs gerados recentemente -->
+    <h2>PDFs Gerados</h2>
+    <ul>
+        {% for pdf in page_obj %}
+        <li>
+            {{ pdf.file_name }}
+            <a href="{% url 'files:download_file' pdf.id %}" target="_blank">Baixar</a>
+        </li>
+        {% empty %}
+        <li>Nenhum PDF gerado ainda.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Paginação abaixo -->
+    <div>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+        {% endif %}
+    </div>
+{% endblock %}

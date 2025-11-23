@@ -1,4 +1,5 @@
-# supabase_storage.py
+# D:\Gabriel\Programs\EasyDocs\files\supabase_storage.py
+
 from supabase import create_client, Client
 from django.conf import settings
 import logging
@@ -31,7 +32,7 @@ class SupabaseStorageService:
                 options
             )
             logger.info(f"Upload successful: {response}")
-            return response
+            return response.path
         except Exception as e:
             logger.error(f"Upload failed: {str(e)}", exc_info=True)
             raise Exception(f"Upload failed: {str(e)}")
@@ -55,5 +56,30 @@ class SupabaseStorageService:
         except Exception as e:
             logger.error(f"Delete failed: {str(e)}", exc_info=True)
             raise Exception(f"Delete failed: {str(e)}")
+
+    def list_files(self, prefix):
+        """
+        Lista todos os arquivos dentro do prefixo (pasta).
+        """
+        try:
+            response = self.supabase.storage.from_(self.bucket_name).list(prefix)
+            # Retorna lista de arquivos {'name': ..., ...}
+            return response
+        except Exception as e:
+            logger.error(f"List files failed: {str(e)}", exc_info=True)
+            return []
+
+    def delete_folder_from_storage(self, prefix):
+        """
+        Remove todos arquivos (e subpastas) dentro do prefixo no bucket.
+        """
+        arquivos = self.list_files(prefix)
+        for arquivo in arquivos:
+            # Monta caminho completo do arquivo dentro do bucket
+            full_path = f"{prefix}{arquivo['name']}"
+            try:
+                self.delete_file(full_path)
+            except Exception as e:
+                logger.error(f"Erro ao remover do storage: {full_path} – {str(e)}")
 
 supabase_storage = SupabaseStorageService()

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Preencher campos para {{ template_obj.template_name }}</h1>
+
+<form method="post" action="{{ request.path }}#pdf-actions">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="folder_id">Salvar em pasta:</label>
+    <select id="folder_id" name="folder_id" required>
+        {% for folder in folders %}
+        {% if folder.folder_name == request.user.id|stringformat:"s" %}
+        <option value="{{ folder.id }}">Meus Arquivos</option>
+        {% else %}
+        <option value="{{ folder.id }}">{{ folder.folder_name }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+    <div style="display: flex; gap: 1em; margin-top: 1em;">
+        <button type="submit" name="action" value="generate">Gerar</button>
+        {% if pdf_url and file_id %}
+        <div id="pdf-actions" class="action-row">
+            <a href="{{ pdf_url }}" class="button" target="_blank">Abrir</a>
+            <button type="submit" name="action" value="delete">Excluir</button>
+            <input type="hidden" name="file_id" value="{{ file_id }}">
+        </div>
+        {% endif %}
+
+    </div>
+</form>
+
+
+<a href="{% url 'files:pdf_generator' %}" class="button">Voltar</a>
+{% endblock %}

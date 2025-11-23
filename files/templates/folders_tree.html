@@ -1,0 +1,31 @@
+<ul>
+    {% for folder in folders %}
+        <li>
+            <strong>
+                {% if folder.folder_name == request.user.id|stringformat:"s" %}
+                    Meus Arquivos
+                {% else %}
+                    {{ folder.folder_name }}
+                {% endif %}
+            </strong>
+            <a href="{% url 'files:delete_folder' folder.id %}" class="button">Excluir</a>
+            <!-- Arquivos desse folder -->
+            <ul>
+                {% for file in files %}
+                    {% if file.folder_id == folder.id %}
+                        <li>{{ file.file_name }}
+                            <a href="{% url 'files:download_file' file.id %}" target="_blank">Baixar</a>
+                            <a href="{% url 'files:delete_file' file.id %}">Excluir arquivo</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- Subpastas recursivamente -->
+            {% with subfolders=folder.subfolders.all %}
+                {% if subfolders %}
+                    {% include "folders_tree.html" with folders=subfolders files=files %}
+                {% endif %}
+            {% endwith %}
+        </li>
+    {% endfor %}
+</ul>

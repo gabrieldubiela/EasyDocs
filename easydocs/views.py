@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')  # Exibe a tela pós-login
+        return render(request, 'home.html')
 
     show_register = request.GET.get('register') == '1'
     login_form = EmailLoginForm()
@@ -29,7 +29,7 @@ def home(request):
     context = {
         'login_form': login_form,
         'register_form': register_form,
-        'show_register': show_register  # Valor booleano, não string!
+        'show_register': show_register
     }
     return render(request, 'auth.html', context)
 

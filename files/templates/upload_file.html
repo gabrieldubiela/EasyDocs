@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Fazer upload de arquivo</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.description.label_tag }} {{ form.description }}
+
+    <label for="folder">Pasta:</label>
+    <select name="folder" id="folder" required>
+        <option value="">Meus Arquivos</option>
+        {% for folder in form.fields.folder.queryset %}
+            {% if folder.folder_name != request.user.id|stringformat:"s" %}
+                <option value="{{ folder.id }}">{{ folder.folder_name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    {{ form.file.label_tag }} {{ form.file }}
+    <button type="submit">Enviar</button>
+</form>
+
+<a href="{% url 'files:file_management' %}">Voltar para gestão de arquivos</a>
+{% endblock %}

@@ -7,7 +7,6 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        # Inclui 'email', 'password1', 'password2' (senha e confirmação)
         fields = ("email", "password1", "password2")  
 
     def save(self, commit=True):

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Gestão de arquivos</h1>
+<a href="{% url 'files:create_folder' %}">Criar pasta</a>
+<a href="{% url 'files:upload_file' %}">Upload arquivo</a>
+{% include "folders_tree.html" with folders=folders files=files %}
+{% endblock %}
