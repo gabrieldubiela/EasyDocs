@@ -9,7 +9,6 @@
                 {% endif %}
             </strong>
             <a href="{% url 'files:delete_folder' folder.id %}" class="button">Excluir</a>
-            <!-- Arquivos desse folder -->
             <ul>
                 {% for file in files %}
                     {% if file.folder_id == folder.id %}
@@ -20,7 +19,6 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- Subpastas recursivamente -->
             {% with subfolders=folder.subfolders.all %}
                 {% if subfolders %}
                     {% include "folders_tree.html" with folders=subfolders files=files %}

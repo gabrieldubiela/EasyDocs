@@ -2,8 +2,6 @@
 
 {% block content %}
     <h1>Gerador de PDF</h1>
-
-    <!-- Seção para exibir templates existentes -->
     <h2>Templates disponíveis</h2>
     <ul>
         {% for template in templates %}
@@ -15,11 +13,7 @@
         <li>Nenhum template cadastrado</li>
         {% endfor %}
     </ul>
-
-    <!-- Botão para criar novo template -->
     <a href="{% url 'files:create_template' %}">Criar novo template</a>
-
-    <!-- Lista dos PDFs gerados recentemente -->
     <h2>PDFs Gerados</h2>
     <ul>
         {% for pdf in page_obj %}
@@ -31,8 +25,6 @@
         <li>Nenhum PDF gerado ainda.</li>
         {% endfor %}
     </ul>
-
-    <!-- Paginação abaixo -->
     <div>
         {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
