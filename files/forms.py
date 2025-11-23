@@ -3,13 +3,13 @@ from django.core.exceptions import ValidationError
 from .models import FileCreated, PDFTemplate, DocumentFolder
 
 class FileCreatedForm(forms.ModelForm):
-    """Formulário customizado para upload de arquivos"""
     
     file = forms.FileField(
         label='Selecione o arquivo',
         help_text='Máximo 50MB',
         required=True
     )
+    
     folder = forms.ModelChoiceField(
         queryset=DocumentFolder.objects.none(),
         required=False,
@@ -57,10 +57,7 @@ class FileCreatedForm(forms.ModelForm):
             raise ValidationError('Nome do arquivo é obrigatório.')
         return file_name
 
-
 class PDFTemplateForm(forms.ModelForm):
-    """Formulário para templates PDF"""
-    
     class Meta:
         model = PDFTemplate
         fields = ['template_name', 'template_type', 'description', 'html_content', 'css_content', 'is_active']
@@ -87,25 +84,3 @@ class PDFTemplateForm(forms.ModelForm):
                 'placeholder': 'CSS customizado (opcional)'
             }),
         }
-
-class PropostaPDFForm(forms.Form):
-    nome_do_cliente = forms.CharField(label='Nome do Cliente', max_length=255)
-    cpf_do_cliente = forms.CharField(label='CPF do Cliente', max_length=20, required=False)
-    serviço_abreviado = forms.CharField(label='Serviço (abreviado)', max_length=100)
-    serviço_completo = forms.CharField(label='Serviço (completo)', max_length=255)
-    localização = forms.CharField(label='Localização', max_length=255)
-    número_da_proposta = forms.CharField(label='Número da Proposta', max_length=50)
-    descrição_do_servico = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 5, 'placeholder': 'Um item por linha'}),
-        required=False,
-        label="Descrição do serviço (um por linha)"
-    )
-    itens_não_inclusos = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 5, 'placeholder': 'Um item por linha'}),
-        required=False,
-        label="Itens não inclusos (um por linha)"
-    )
-    valor_total = forms.CharField(label='Valor Total', max_length=20)
-    forma_de_pagamento = forms.CharField(label='Forma de Pagamento', max_length=255)
-    prazo_de_execução = forms.CharField(label='Prazo de execução', max_length=255)
-    data_da_proposta = forms.CharField(label='Data Atual', max_length=40)

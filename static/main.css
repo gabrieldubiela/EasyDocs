@@ -1,5 +1,5 @@
 /* ================================
-   EasyDocs - CSS Moderno Responsivo
+   EasyDocs - CSS
    ================================ */
 
 /* Import Google Fonts */
@@ -51,7 +51,7 @@
 }
 
 /* ================================
-   RESET & TIPOGRAFIA
+   RESET & FONT
    ================================ */
 *,
 *::before,
@@ -144,7 +144,7 @@ h3,
 }
 
 /* ================================
-   FORMULARIOS
+   FORMS
    ================================ */
 form {
     background: var(--color-surface);
@@ -243,7 +243,7 @@ a:focus {
 }
 
 /* ================================
-   LISTAS E CARDS
+   LISTS & CARDS
    ================================ */
 ul,
 ol {
@@ -281,7 +281,7 @@ li {
 }
 
 /* ================================
-   TEXTOS E UTILS
+   TEXTS & UTILS
    ================================ */
 strong,
 b {
@@ -332,7 +332,7 @@ nav a:focus {
 }
 
 /* ================================
-   TOAST/NOTIFICACAO (opcional)
+   TOAST
    ================================ */
 
 .toast-message {
@@ -354,7 +354,7 @@ nav a:focus {
 }
 
 /* ================================
-   RESPONSIVIDADE
+   RESPONSIVE DESIGN
    ================================ */
 
 @media (max-width: 600px) {

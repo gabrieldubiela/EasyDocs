@@ -9,7 +9,7 @@
         {% for template in templates %}
         <li>
             {{ template.template_name }}
-            <a href="{% url 'files:preencher_template' template.id %}">Preencher</a>
+            <a href="{% url 'files:fill_template' template.id %}">Preencher</a>
         </li>
         {% empty %}
         <li>Nenhum template cadastrado</li>
@@ -17,7 +17,7 @@
     </ul>
 
     <!-- Botão para criar novo template -->
-    <a href="{% url 'files:criar_template' %}">Criar novo template</a>
+    <a href="{% url 'files:create_template' %}">Criar novo template</a>
 
     <!-- Lista dos PDFs gerados recentemente -->
     <h2>PDFs Gerados</h2>

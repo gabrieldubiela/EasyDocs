@@ -1,5 +1,3 @@
-# D:\Gabriel\Programs\EasyDocs\files\supabase_storage.py
-
 from supabase import create_client, Client
 from django.conf import settings
 import logging
@@ -38,7 +36,6 @@ class SupabaseStorageService:
             raise Exception(f"Upload failed: {str(e)}")
 
     def get_signed_url(self, file_path, expires_in=3600):
-        """Gere uma URL temporária de acesso seguro."""
         try:
             response = self.supabase.storage.from_(self.bucket_name).create_signed_url(file_path, expires_in)
             if isinstance(response, dict) and 'signedUrl' in response:
@@ -58,9 +55,6 @@ class SupabaseStorageService:
             raise Exception(f"Delete failed: {str(e)}")
 
     def list_files(self, prefix):
-        """
-        Lista todos os arquivos dentro do prefixo (pasta).
-        """
         try:
             response = self.supabase.storage.from_(self.bucket_name).list(prefix)
             # Retorna lista de arquivos {'name': ..., ...}
@@ -70,9 +64,6 @@ class SupabaseStorageService:
             return []
 
     def delete_folder_from_storage(self, prefix):
-        """
-        Remove todos arquivos (e subpastas) dentro do prefixo no bucket.
-        """
         arquivos = self.list_files(prefix)
         for arquivo in arquivos:
             # Monta caminho completo do arquivo dentro do bucket
