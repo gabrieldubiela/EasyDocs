@@ -162,7 +162,7 @@ def fill_template_view(request, template_id):
     class DynamicTemplateForm(forms.Form):
         pass
     for field in fields:
-        if field in fields_list:
+        if field in field_list:
             DynamicTemplateForm.base_fields[field] = forms.CharField(
                 label=field.replace('_', ' ').capitalize(),
                 required=False,
@@ -199,7 +199,7 @@ def fill_template_view(request, template_id):
         form = DynamicTemplateForm(request.POST)
         if form.is_valid():
             context = form.cleaned_data
-            for field_list in fields_list:
+            for field_list in field_list:
                 if field_list in context and isinstance(context[field_list], str):
                     context[field_list] = [line.strip() for line in context[field_list].splitlines() if line.strip()]
             user_folder = f"{request.user.id}"
