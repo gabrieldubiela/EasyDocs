@@ -259,14 +259,12 @@ def fill_template_view(request, template_id):
 
     else:
         form = DynamicTemplateForm()
-        response = render(request, 'fill_template.html', {
+        return render(request, 'fill_template.html', {
             'form': form,
             'template_obj': template_obj,
             'folders': folders,
         })
-        response['Location'] = request.path + '#pdf-actions'
-        response.status_code = 303
-        return response
+
 
 @login_required
 def file_management_view(request):
