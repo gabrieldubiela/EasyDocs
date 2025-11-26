@@ -5,21 +5,29 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.description.label_tag }} {{ form.description }}
-
+    {{ form.description.label_tag }} 
+    {{ form.description }}
+    <br><br>
     <label for="folder">Pasta:</label>
     <select name="folder" id="folder" required>
-        <option value="">Meus Arquivos</option>
         {% for folder in form.fields.folder.queryset %}
-            {% if folder.folder_name != request.user.id|stringformat:"s" %}
-                <option value="{{ folder.id }}">{{ folder.folder_name }}</option>
-            {% endif %}
+            <option value="{{ folder.id }}">
+                {% if folder.folder_name == request.user.id|stringformat:"s" %}
+                    Meus Arquivos
+                {% else %}
+                    {{ folder.folder_name }}
+                {% endif %}
+            </option>
         {% endfor %}
     </select>
-
-    {{ form.file.label_tag }} {{ form.file }}
+    <br><br>
+    {{ form.file.label_tag }}
+    {{ form.file }}
+    <br><br>
+    
     <button type="submit">Enviar</button>
 </form>
 
+<br>
 <a href="{% url 'files:file_management' %}">Voltar para gestão de arquivos</a>
 {% endblock %}

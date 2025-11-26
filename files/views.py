@@ -324,18 +324,28 @@ def upload_file_view(request):
             elif ext in [".jpg", ".jpeg", ".png", ".gif", ".bmp"]:
                 instance.file_type = "image"
             else:
-                instance.file_type = "txt"  
+                instance.file_type = "txt"
+            
+            folder_path = get_folder_path(instance.folder)
+            try:
+                instance.file_path = supabase_storage.upload_file(
+                    form.cleaned_data['file'],
+                    f"{folder_path}/{form.cleaned_data['file'].name}"
+                )
+            except Exception as e:
+                return HttpResponse(f"Erro no upload: {str(e)}")
 
-            instance.file_path = supabase_storage.upload_file(
-                form.cleaned_data['file'],
-                f"{instance.folder.folder_name}/{form.cleaned_data['file'].name}"
-            )
             instance.is_generated = False
             instance.save()
             return redirect('files:file_management')
+        else:
+            return HttpResponse(f"Erro: {form.errors}")
     else:
         form = FileCreatedForm(request=request)
     return render(request, 'upload_file.html', {'form': form})
+
+
+
 
 @login_required
 def delete_file_view(request, file_id):
@@ -362,6 +372,13 @@ def delete_folder_view(request, folder_id):
     folder.delete()
 
     return redirect('files:file_management')
+
+def get_folder_path(folder):
+    parts = []
+    while folder:
+        parts.insert(0, str(folder.folder_name))
+        folder = folder.parent_folder
+    return '/'.join(parts)
 
 def nome_pdf_proposta(context, template_obj):
     number = context.get('número_da_proposta', 'novo').replace('/', '-').replace('\\', '-').replace(' ', '_')
